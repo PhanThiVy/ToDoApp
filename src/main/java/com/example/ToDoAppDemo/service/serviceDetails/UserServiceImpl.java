@@ -22,7 +22,7 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final RoleService roleService;
     @Override
-    public UserResponseDto addUser(UserRequestDto userRequestDto) {
+    public UserResponseDto signUp(UserRequestDto userRequestDto) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         User user = new User();
         //set full name
