@@ -45,4 +45,10 @@ public class TaskListController {
         TaskListResponseDto taskListResponseDto = taskListService.getTaskListById(taskListId);
         return new ResponseEntity<>(taskListResponseDto, HttpStatus.OK);
     }
+
+    @PutMapping("/editTaskList/{taskListId}")
+    public ResponseEntity<TaskListResponseDto> edit(@PathVariable String taskListId, @RequestBody TaskListRequestDto taskListRequestDto) {
+        TaskListResponseDto taskListResponseDto = taskListService.editTaskList(taskListId, taskListRequestDto);
+        return new ResponseEntity<>(taskListResponseDto, HttpStatus.OK);
+    }
 }
