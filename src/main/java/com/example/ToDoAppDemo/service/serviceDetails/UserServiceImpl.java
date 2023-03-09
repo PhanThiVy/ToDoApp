@@ -1,23 +1,33 @@
 package com.example.ToDoAppDemo.service.serviceDetails;
 
 import com.example.ToDoAppDemo.dto.mapper.Mapper;
+import com.example.ToDoAppDemo.dto.requestDto.LoginRequestDto;
 import com.example.ToDoAppDemo.dto.requestDto.UserRequestDto;
 import com.example.ToDoAppDemo.dto.responseDto.UserResponseDto;
 import com.example.ToDoAppDemo.exception.userException.UserNameExistException;
 import com.example.ToDoAppDemo.exception.userException.UserNotFoundException;
+import com.example.ToDoAppDemo.jwt.CustomUserDetails;
+import com.example.ToDoAppDemo.jwt.JwtTokenProvider;
 import com.example.ToDoAppDemo.model.User;
 import com.example.ToDoAppDemo.repository.UserRepository;
 import com.example.ToDoAppDemo.service.iService.RoleService;
 import com.example.ToDoAppDemo.service.iService.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, UserDetailsService {
     private static final String USER = "USER";
     private static final String ADMIN = "ADMIN";
     private final UserRepository userRepository;
@@ -46,6 +56,7 @@ public class UserServiceImpl implements UserService {
         roleService.addUser(roleService.getRoleByName(UserServiceImpl.USER),user);
         return Mapper.userToUserResponseDto(user);
     }
+
 
     @Override
     public User getUser(String userId) {
@@ -85,5 +96,15 @@ public class UserServiceImpl implements UserService {
             throw new UserNameExistException(HttpStatus.CONFLICT.value(), " This user name is exist - please enter a new one");
         }
         return false;
+    }
+    @Transactional
+    @Override
+    public CustomUserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userRepository.findUserByUserName(username);
+        if(user==null){
+            throw new UsernameNotFoundException("not found user name");
+        }
+        UserResponseDto userResponseDto=Mapper.userToUserResponseDto(user);
+        return new CustomUserDetails(userResponseDto);
     }
 }
