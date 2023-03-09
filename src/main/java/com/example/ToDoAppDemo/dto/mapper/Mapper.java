@@ -1,8 +1,10 @@
 package com.example.ToDoAppDemo.dto.mapper;
 
 import com.example.ToDoAppDemo.dto.responseDto.RoleResponseDto;
+import com.example.ToDoAppDemo.dto.responseDto.TaskListResponseDto;
 import com.example.ToDoAppDemo.dto.responseDto.UserResponseDto;
 import com.example.ToDoAppDemo.model.Role;
+import com.example.ToDoAppDemo.model.Task;
 import com.example.ToDoAppDemo.model.TaskList;
 import com.example.ToDoAppDemo.model.User;
 
@@ -55,5 +57,22 @@ public class Mapper {
 
         return userResponseDto;
 
+    }
+    //map form TaskList to TaskListResponseDto
+    public static TaskListResponseDto TaskListToTaskListResponseDto(TaskList taskList) {
+        TaskListResponseDto taskListResponseDto = new TaskListResponseDto();
+
+        taskListResponseDto.setTaskListId(taskList.getTaskListId());
+        taskListResponseDto.setTaskListName(taskList.getListName());
+        //add user
+        taskListResponseDto.setUserName(taskList.getUser().getUserName());
+        //add task
+        List<String> taskListName = new ArrayList<>();
+        for (Task task: taskList.getTasks()) {
+            taskListName.add(task.getTaskName());
+        }
+        taskListResponseDto.setTaskName(taskListName);
+
+        return taskListResponseDto;
     }
 }

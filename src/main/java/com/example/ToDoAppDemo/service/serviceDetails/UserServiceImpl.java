@@ -8,6 +8,7 @@ import com.example.ToDoAppDemo.exception.userException.UserNameExistException;
 import com.example.ToDoAppDemo.exception.userException.UserNotFoundException;
 import com.example.ToDoAppDemo.jwt.CustomUserDetails;
 import com.example.ToDoAppDemo.jwt.JwtTokenProvider;
+import com.example.ToDoAppDemo.model.TaskList;
 import com.example.ToDoAppDemo.model.User;
 import com.example.ToDoAppDemo.repository.UserRepository;
 import com.example.ToDoAppDemo.service.iService.RoleService;
@@ -97,6 +98,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         }
         return false;
     }
+
     @Transactional
     @Override
     public CustomUserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -105,6 +107,18 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             throw new UsernameNotFoundException("not found user name");
         }
         UserResponseDto userResponseDto=Mapper.userToUserResponseDto(user);
-        return new CustomUserDetails(userResponseDto);
+        return new CustomUserDetails(userResponseDto);}
+
+    @Override
+    public void addTaskList(User user, TaskList taskList) {
+        user.addTaskList(taskList);
+        userRepository.save(user);
+    }
+
+    @Override
+    public void removeTaskList(User user, TaskList taskList) {
+        user.removeTaskList(taskList);
+        userRepository.save(user);
+
     }
 }
