@@ -62,7 +62,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResponseDto getUserById(String userId) {
-        return null;
+        User user = getUser(userId);
+        return Mapper.userToUserResponseDto(user);
     }
 
 
