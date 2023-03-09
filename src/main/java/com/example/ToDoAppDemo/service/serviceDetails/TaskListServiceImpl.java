@@ -66,4 +66,17 @@ public class TaskListServiceImpl implements TaskListService {
         return Mapper.TaskListToTaskListResponseDto(taskList);
     }
 
+    @Override
+    public TaskListResponseDto editTaskList(String taskListById, TaskListRequestDto taskListRequestDto) {
+        return null;
+    }
+
+    @Override
+    public void taskListNameIsExistForEdit(String taskListName, Long taskListId, Long userId) {
+        TaskList taskList = taskListRepository.listNameIsExistForEdit(taskListName,taskListId,userId);
+        if(taskList!=null){
+            throw new TaskListNameIsExisException(HttpStatus.CONFLICT.value(), " This task list name is exist - please enter a new one");
+        }
+    }
+
 }

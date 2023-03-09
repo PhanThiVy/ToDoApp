@@ -11,5 +11,5 @@ public interface TaskListService {
     public TaskList getTaskList(String taskListById);
     public TaskListResponseDto getTaskListById(String taskListById);
     public TaskListResponseDto editTaskList(String taskListById, TaskListRequestDto taskListRequestDto);
-    public void roleNameIsExistForEdit(String taskListName,Long taskListId,Long userId);
+    public void taskListNameIsExistForEdit(String taskListName,Long taskListId,Long userId);
 }
