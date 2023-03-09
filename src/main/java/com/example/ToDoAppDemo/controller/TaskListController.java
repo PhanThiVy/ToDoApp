@@ -4,15 +4,12 @@ import com.example.ToDoAppDemo.dto.requestDto.TaskListRequestDto;
 import com.example.ToDoAppDemo.dto.responseDto.TaskListResponseDto;
 import com.example.ToDoAppDemo.exception.taskListException.TaskListNotValidException;
 import com.example.ToDoAppDemo.service.iService.TaskListService;
-import com.example.ToDoAppDemo.service.iService.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.HashMap;
@@ -40,6 +37,12 @@ public class TaskListController {
             throw new TaskListNotValidException(HttpStatus.BAD_REQUEST.value(), errorMsg);
         }
         TaskListResponseDto taskListResponseDto = taskListService.addTaskList(taskListRequestDto);
+        return new ResponseEntity<>(taskListResponseDto, HttpStatus.OK);
+    }
+
+    @GetMapping("/getById/{taskListId}")
+    public ResponseEntity<TaskListResponseDto> getTaskListById(@PathVariable String taskListId){
+        TaskListResponseDto taskListResponseDto = taskListService.getTaskListById(taskListId);
         return new ResponseEntity<>(taskListResponseDto, HttpStatus.OK);
     }
 }
