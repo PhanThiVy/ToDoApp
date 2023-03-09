@@ -68,7 +68,16 @@ public class TaskListServiceImpl implements TaskListService {
 
     @Override
     public TaskListResponseDto editTaskList(String taskListById, TaskListRequestDto taskListRequestDto) {
-        return null;
+        //check task list is exist
+        TaskList taskList = getTaskList(taskListById);
+
+        //check task list name is duplicate
+        taskListNameIsExistForEdit(taskListRequestDto.getTaskListName(),taskList.getTaskListId(),taskList.getUser().getId());
+
+        taskList.setListName(taskListRequestDto.getTaskListName());
+
+        taskListRepository.save(taskList);
+        return Mapper.TaskListToTaskListResponseDto(taskList);
     }
 
     @Override
