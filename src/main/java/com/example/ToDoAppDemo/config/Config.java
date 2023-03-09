@@ -31,6 +31,18 @@ public class Config {
     public PageRequest userPageable() {
         return PageRequest.of(0, 20, Sort.by(Sort.Direction.ASC, "username"));
     }
+
+    //        @Bean
+//    public Docket api() {
+//        return new Docket(DocumentationType.SWAGGER_2)
+//                .select()
+//                .apis(RequestHandlerSelectors.basePackage("com.example.ToDoApp.controller"))
+//                .paths(PathSelectors.any())
+//                .build()
+////                .securitySchemes((List<SecurityScheme>) securityScheme())
+//                .apiInfo(apiInfo());
+//
+//    }
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
@@ -67,4 +79,6 @@ public class Config {
         authorizationScopes[0] = authorizationScope;
         return Arrays.asList(new SecurityReference("JWT", authorizationScopes));
     }
+
+
 }
