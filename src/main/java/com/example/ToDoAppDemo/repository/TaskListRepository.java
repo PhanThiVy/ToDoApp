@@ -10,4 +10,6 @@ import org.springframework.stereotype.Repository;
 public interface TaskListRepository extends JpaRepository<TaskList,Long> {
     @Query(value = "SELECT * FROM tasK_list r WHERE r.list_name = :taskListName  and r.user_id= :userId", nativeQuery = true)
     TaskList listNameIsExistForAdd(@Param("taskListName") String taskListName, @Param("userId") Long userId);
+    @Query(value = "SELECT * FROM tasK_list r WHERE r.list_name = :taskListName and r.tasK_list_id != :taskListId and r.user_id= :userId", nativeQuery = true)
+    TaskList listNameIsExistForEdit(@Param("taskListName") String taskListName, @Param("taskListId") Long taskListId,@Param("userId") Long userId);
 }
