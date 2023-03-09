@@ -3,6 +3,7 @@ package com.example.ToDoAppDemo.service.serviceDetails;
 import com.example.ToDoAppDemo.dto.mapper.Mapper;
 import com.example.ToDoAppDemo.dto.responseDto.RoleResponseDto;
 import com.example.ToDoAppDemo.model.Role;
+import com.example.ToDoAppDemo.model.User;
 import com.example.ToDoAppDemo.repository.RoleRepository;
 import com.example.ToDoAppDemo.service.iService.RoleService;
 import lombok.RequiredArgsConstructor;
@@ -26,5 +27,11 @@ public class RoleServiceImpl implements RoleService {
     public Role getRoleByName(String roleName) {
         Role role = roleRepository.findRoleByRoleName(roleName);
         return role;
+    }
+
+    @Override
+    public void addUser(Role role, User user) {
+        role.addUser(user);
+        roleRepository.save(role);
     }
 }
