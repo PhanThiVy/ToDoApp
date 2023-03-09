@@ -10,4 +10,6 @@ public interface TaskListService {
     public void roleNameIsExistForAdd(String taskListName,Long userId);
     public TaskList getTaskList(String taskListById);
     public TaskListResponseDto getTaskListById(String taskListById);
+    public TaskListResponseDto editTaskList(String taskListById, TaskListRequestDto taskListRequestDto);
+    public void roleNameIsExistForEdit(String taskListName,Long taskListId,Long userId);
 }
