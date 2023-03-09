@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 
 public interface UserService {
-    public UserResponseDto addUser(UserRequestDto userRequestDto);
+    public UserResponseDto signUp(UserRequestDto userRequestDto);
     public User getUser(String userId);
     public UserResponseDto getUserById(String userId);
     public UserResponseDto addRoleToUserToUser(String userId, String roleId);

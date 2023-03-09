@@ -1,5 +1,6 @@
 package com.example.ToDoAppDemo.service.serviceDetails;
 
+import com.example.ToDoAppDemo.dto.mapper.Mapper;
 import com.example.ToDoAppDemo.dto.requestDto.UserRequestDto;
 import com.example.ToDoAppDemo.dto.responseDto.UserResponseDto;
 import com.example.ToDoAppDemo.exception.userException.UserNameExistException;
@@ -9,6 +10,7 @@ import com.example.ToDoAppDemo.service.iService.RoleService;
 import com.example.ToDoAppDemo.service.iService.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +23,27 @@ public class UserServiceImpl implements UserService {
     private final RoleService roleService;
     @Override
     public UserResponseDto addUser(UserRequestDto userRequestDto) {
-        return null;
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        User user = new User();
+        //set full name
+        user.setFullName(userRequestDto.getFullName());
+        //check and set user name
+        if (!userNameIsExist(userRequestDto.getUserName())) {
+            user.setUserName(userRequestDto.getUserName());
+        }
+
+        //set password
+        String encodedPassword = passwordEncoder.encode(userRequestDto.getPassword());
+        user.setPassword(encodedPassword);
+        user.addRole(roleService.getRoleByName(UserServiceImpl.USER));
+        //set mail
+        user.setEmail(userRequestDto.getEmail());
+
+        //save user
+        userRepository.save(user);
+        //save role
+        roleService.addUser(roleService.getRoleByName(UserServiceImpl.USER),user);
+        return Mapper.userToUserResponseDto(user);
     }
 
     @Override
@@ -34,10 +56,6 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
-    @Override
-    public UserResponseDto addAdmin(UserRequestDto userRequestDto) {
-        return null;
-    }
 
     @Override
     public UserResponseDto addRoleToUserToUser(String userId, String roleId) {
