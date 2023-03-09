@@ -1,7 +1,6 @@
-package com.example.ToDoApp.config;
+package com.example.ToDoAppDemo.config;
 
-import com.example.ToDoApp.jwt.JwtAuthenticationFilter;
-import com.example.ToDoApp.service.UserServiceImpl;
+import com.example.ToDoAppDemo.service.serviceDetails.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,6 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -28,10 +28,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "**/swagger-resources/**",
            "/user/login"
     };
-//    @Bean
-//    public JwtAuthenticationFilter jwtAuthenticationFilter() {
-//        return new JwtAuthenticationFilter();
-//    }
 
     @Bean(BeanIds.AUTHENTICATION_MANAGER)
     @Override
@@ -62,8 +58,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(SWAGGER_WHITELIST).permitAll()
                 .antMatchers("/user/login").permitAll()
-                .antMatchers("/role/**").hasRole("USER")
-                .antMatchers("/user/getById/**").hasRole("USER")
+                .antMatchers("/role/**").hasRole("ADMIN")
                 .and()
                 .authorizeRequests()
                 .anyRequest().authenticated()
