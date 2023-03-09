@@ -21,4 +21,10 @@ public class RoleServiceImpl implements RoleService {
         Page<Role> rolePage = roleRepository.findAll(rolePageable.withPage(pageNumber));
         return rolePage.map(role -> Mapper.roleToRoleResponseDto(role));
     }
+
+    @Override
+    public Role getRoleByName(String roleName) {
+        Role role = roleRepository.findRoleByRoleName(roleName);
+        return role;
+    }
 }
