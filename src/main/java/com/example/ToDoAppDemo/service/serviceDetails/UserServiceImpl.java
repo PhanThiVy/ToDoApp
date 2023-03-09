@@ -5,6 +5,7 @@ import com.example.ToDoAppDemo.dto.requestDto.UserRequestDto;
 import com.example.ToDoAppDemo.dto.responseDto.UserResponseDto;
 import com.example.ToDoAppDemo.exception.userException.UserNameExistException;
 import com.example.ToDoAppDemo.exception.userException.UserNotFoundException;
+import com.example.ToDoAppDemo.model.TaskList;
 import com.example.ToDoAppDemo.model.User;
 import com.example.ToDoAppDemo.repository.UserRepository;
 import com.example.ToDoAppDemo.service.iService.RoleService;
@@ -85,5 +86,16 @@ public class UserServiceImpl implements UserService {
             throw new UserNameExistException(HttpStatus.CONFLICT.value(), " This user name is exist - please enter a new one");
         }
         return false;
+    }
+    @Override
+    public void addTaskList(User user, TaskList taskList) {
+        user.addTaskList(taskList);
+        userRepository.save(user);
+    }
+
+    @Override
+    public void removeTaskList(User user, TaskList taskList) {
+        user.removeTaskList(taskList);
+        userRepository.save(user);
     }
 }
