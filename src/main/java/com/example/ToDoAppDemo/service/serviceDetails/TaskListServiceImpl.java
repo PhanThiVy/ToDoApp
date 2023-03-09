@@ -62,6 +62,8 @@ public class TaskListServiceImpl implements TaskListService {
 
     @Override
     public TaskListResponseDto getTaskListById(String taskListById) {
+        TaskList taskList = getTaskList(taskListById);
+        return Mapper.TaskListToTaskListResponseDto(taskList);
     }
 
 }
