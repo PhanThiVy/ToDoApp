@@ -4,6 +4,7 @@ import com.example.ToDoAppDemo.dto.mapper.Mapper;
 import com.example.ToDoAppDemo.dto.requestDto.UserRequestDto;
 import com.example.ToDoAppDemo.dto.responseDto.UserResponseDto;
 import com.example.ToDoAppDemo.exception.userException.UserNameExistException;
+import com.example.ToDoAppDemo.exception.userException.UserNotFoundException;
 import com.example.ToDoAppDemo.model.User;
 import com.example.ToDoAppDemo.repository.UserRepository;
 import com.example.ToDoAppDemo.service.iService.RoleService;
@@ -48,7 +49,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUser(String userId) {
-        return null;
+        if (userId.matches("\\d+")) {
+            Long id = Long.parseLong(userId);
+            //check role is exist
+            User user = userRepository.findById(id).orElseThrow(()
+                    -> new UserNotFoundException(HttpStatus.NOT_FOUND.value(),"Can not find user with id "+ userId));
+            return user;
+        }
+        //if roleId is not number , thrown NotFoundException
+        throw new UserNotFoundException(HttpStatus.NOT_FOUND.value(),"Please enter number for user id.");
     }
 
     @Override
