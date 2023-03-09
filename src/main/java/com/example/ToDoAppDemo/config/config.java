@@ -6,7 +6,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 
 @Configuration
-public class config {
+public class Config {
     @Bean
     public PageRequest rolePageable() {
         return PageRequest.of(0, 20, Sort.by(Sort.Direction.ASC, "roleName"));
