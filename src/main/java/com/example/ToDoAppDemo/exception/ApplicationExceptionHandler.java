@@ -1,6 +1,7 @@
 package com.example.ToDoAppDemo.exception;
 
 import com.example.ToDoAppDemo.exception.taskListException.TaskListNameIsExisException;
+import com.example.ToDoAppDemo.exception.taskListException.TaskListNotValidException;
 import com.example.ToDoAppDemo.exception.userException.UserNameExistException;
 import com.example.ToDoAppDemo.exception.userException.UserNotFoundException;
 import com.example.ToDoAppDemo.exception.userException.UserNotValidException;
@@ -30,6 +31,12 @@ public class ApplicationExceptionHandler {
     @ExceptionHandler(TaskListNameIsExisException.class)
     @ResponseStatus(HttpStatus.CONFLICT)
     public ErrorDetail handlerTaskListNameIsExisException(TaskListNameIsExisException ex){
+        return ex.getErrorDetail();
+    }
+
+    @ExceptionHandler(TaskListNotValidException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorDetail handlerTaskListNotValidException(TaskListNotValidException ex){
         return ex.getErrorDetail();
     }
 }
