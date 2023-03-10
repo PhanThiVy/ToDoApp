@@ -33,6 +33,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private static final String ADMIN = "ADMIN";
     private final UserRepository userRepository;
     private final RoleService roleService;
+    @Transactional
     @Override
     public UserResponseDto signUp(UserRequestDto userRequestDto) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -106,8 +107,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         if(user==null){
             throw new UsernameNotFoundException("not found user name");
         }
-        UserResponseDto userResponseDto=Mapper.userToUserResponseDto(user);
-        return new CustomUserDetails(userResponseDto);}
+        return new CustomUserDetails(user);}
+
 
     @Override
     public void addTaskList(User user, TaskList taskList) {
