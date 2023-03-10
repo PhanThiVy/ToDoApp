@@ -8,6 +8,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -19,6 +20,7 @@ import java.io.IOException;
 
 @Slf4j
 @RequiredArgsConstructor
+@Component
 
 
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
@@ -40,7 +42,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 Long userId = tokenProvider.getUserIdFromJWT(jwt);
 
                 // Lấy thông tin người dùng từ id
-                UserDetails userDetails = new CustomUserDetails(userService.getUserById(String.valueOf(userId)));
+                UserDetails userDetails = new CustomUserDetails(userService.getUser(String.valueOf(userId))) ;
                 if(userDetails != null) {
                     // Nếu người dùng hợp lệ, set thông tin cho Seturity Context
                     UsernamePasswordAuthenticationToken

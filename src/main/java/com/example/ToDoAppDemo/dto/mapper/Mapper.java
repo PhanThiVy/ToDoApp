@@ -8,6 +8,7 @@ import com.example.ToDoAppDemo.model.Task;
 import com.example.ToDoAppDemo.model.TaskList;
 import com.example.ToDoAppDemo.model.User;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +30,7 @@ public class Mapper {
 
     }
     //map user to UserResponseDto
+
     public static UserResponseDto userToUserResponseDto(User user) {
         UserResponseDto userResponseDto = new UserResponseDto();
 
