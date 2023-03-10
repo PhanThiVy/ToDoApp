@@ -28,7 +28,7 @@ public class Role {
                     CascadeType.MERGE,
                     CascadeType.REFRESH,
                     CascadeType.PERSIST
-            }, fetch = FetchType.LAZY)
+            },  fetch = FetchType.EAGER)
     private List<User> users = new ArrayList<>();
     public void addUser(User user) {
         users.add(user);
