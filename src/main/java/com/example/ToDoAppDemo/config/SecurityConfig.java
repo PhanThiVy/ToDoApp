@@ -1,5 +1,6 @@
 package com.example.ToDoAppDemo.config;
 
+import com.example.ToDoAppDemo.jwt.JwtAuthenticationFilter;
 import com.example.ToDoAppDemo.service.serviceDetails.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -13,20 +14,26 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final UserServiceImpl userService;
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private static final String[] SWAGGER_WHITELIST = {
-            "/v2/api-docs/**",
+            "/v2/api-docs",
+            "/swagger-resources",
+            "/swagger-resources/**",
+            "/configuration/ui",
+            "/configuration/security",
+            "/swagger-ui.html",
+            "/webjars/**",
             "/v3/api-docs/**",
             "/swagger-ui/**",
-            "/swagger-ui/index.html",
-            "/swagger-ui.html",
-            "**/swagger-resources/**",
-           "/user/login"
+            "/user/login",
+            "/user/signUp"
     };
 
     @Bean(BeanIds.AUTHENTICATION_MANAGER)
@@ -58,18 +65,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(SWAGGER_WHITELIST).permitAll()
                 .antMatchers("/user/login").permitAll()
-                .antMatchers("/role/**").hasRole("ADMIN")
+                .antMatchers("/role/list").hasAuthority("USER")
                 .and()
                 .authorizeRequests()
-                .anyRequest().authenticated()
-                .and()
-                .formLogin() // Cho phép người dùng xác thực bằng form login
-                .permitAll() // Tất cả đều được truy cập vào địa chỉ này
-                .and()
-                .logout()
-                .permitAll()
-                .and()
-                .httpBasic();
+                .anyRequest().authenticated();
+        // Thêm một lớp Filter kiểm tra jwt
+        http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
     }
 }
