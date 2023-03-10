@@ -74,12 +74,7 @@ public class UserController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         // Trả về jwt cho người dùng.
-        String jwt = tokenProvider.generateToken(authentication);
-//        CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
-//        LoginResponseDto loginResponseDto = new LoginResponseDto().builder()
-//                .userResponseDto(customUserDetails.getUserResponseDto())
-//                .token(jwt)
-//                .build();
+        String jwt = tokenProvider.generateToken((CustomUserDetails) authentication.getPrincipal());
         return new ResponseEntity<>(jwt,HttpStatus.OK);
     }
 
