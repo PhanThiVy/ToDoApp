@@ -1,6 +1,7 @@
 package com.example.ToDoAppDemo.dto.requestDto;
 
 import lombok.*;
+import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;

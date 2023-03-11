@@ -20,8 +20,8 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class TaskListController {
     private final TaskListService taskListService;
-    @PostMapping("/add")
-    public ResponseEntity<TaskListResponseDto> addTaskList(@Valid @RequestBody TaskListRequestDto taskListRequestDto, BindingResult bindingResult) {
+    @PostMapping("/add/{userId}")
+    public ResponseEntity<TaskListResponseDto> addTaskList(@PathVariable String userId,@Valid @RequestBody TaskListRequestDto taskListRequestDto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             Map<String, String> errors = new HashMap<>();
 
@@ -36,7 +36,7 @@ public class TaskListController {
             }
             throw new TaskListNotValidException(HttpStatus.BAD_REQUEST.value(), errorMsg);
         }
-        TaskListResponseDto taskListResponseDto = taskListService.addTaskList(taskListRequestDto);
+        TaskListResponseDto taskListResponseDto = taskListService.addTaskList(userId,taskListRequestDto);
         return new ResponseEntity<>(taskListResponseDto, HttpStatus.OK);
     }
 

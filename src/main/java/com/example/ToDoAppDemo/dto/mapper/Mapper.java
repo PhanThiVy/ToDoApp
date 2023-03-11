@@ -41,7 +41,6 @@ public class Mapper {
         userResponseDto.setEmail(user.getEmail());
         userResponseDto.setRegistrationDate(user.getRegistrationDate());
         userResponseDto.setLocked(user.getLocked());
-        userResponseDto.setEnabled(user.getEnabled());
         //add role
         List<String> roleNames = new ArrayList<>();
         List<Role> roles = user.getRoles();

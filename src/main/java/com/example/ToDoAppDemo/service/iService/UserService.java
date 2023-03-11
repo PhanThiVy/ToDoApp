@@ -1,6 +1,5 @@
 package com.example.ToDoAppDemo.service.iService;
 
-import com.example.ToDoAppDemo.dto.requestDto.LoginRequestDto;
 import com.example.ToDoAppDemo.dto.requestDto.UserRequestDto;
 import com.example.ToDoAppDemo.dto.responseDto.UserResponseDto;
 import com.example.ToDoAppDemo.model.TaskList;

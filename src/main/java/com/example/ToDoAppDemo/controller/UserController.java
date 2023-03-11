@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
@@ -37,6 +38,7 @@ public class UserController {
     private final AuthenticationManager authenticationManager;
 
     private final JwtTokenProvider tokenProvider;
+    @Transactional(rollbackOn = {UserNotValidException.class})
     @PostMapping("/signUp")
     public ResponseEntity<UserResponseDto> addUser(@Valid @RequestBody UserRequestDto userRequestDto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {

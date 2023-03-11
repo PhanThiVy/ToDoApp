@@ -6,7 +6,7 @@ import com.example.ToDoAppDemo.model.TaskList;
 import org.springframework.stereotype.Service;
 
 public interface TaskListService {
-    public TaskListResponseDto addTaskList(TaskListRequestDto taskListRequestDto);
+    public TaskListResponseDto addTaskList(String userId,TaskListRequestDto taskListRequestDto);
     public void roleNameIsExistForAdd(String taskListName,Long userId);
     public TaskList getTaskList(String taskListById);
     public TaskListResponseDto getTaskListById(String taskListById);

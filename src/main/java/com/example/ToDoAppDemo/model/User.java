@@ -37,8 +37,7 @@ public class User {
     //    @Builder.Default
     private Boolean locked = false;
 
-    //    @Builder.Default
-    private Boolean enabled = false;
+
     private String token;
     @ManyToMany(cascade =
             {

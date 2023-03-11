@@ -14,6 +14,5 @@ public class TaskListRequestDto {
     @NotEmpty
     @Size(min = 1,max = 20)
     private String taskListName;
-    @NotEmpty
-    private String userId;
+
 }
