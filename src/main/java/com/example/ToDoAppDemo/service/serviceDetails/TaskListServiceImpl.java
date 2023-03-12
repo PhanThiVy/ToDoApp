@@ -30,19 +30,17 @@ public class TaskListServiceImpl implements TaskListService {
         //check user is exist
         User user = userService.getUser(userId);
         //check task list name is exist
-        roleNameIsExistForAdd(taskListRequestDto.getTaskListName(), Long.valueOf(userId));
+        taskListNameIsExistForAdd(taskListRequestDto.getTaskListName(), Long.valueOf(userId));
 
         taskList.setListName(taskListRequestDto.getTaskListName());
         taskList.setUser(user);
         //save task list
         taskListRepository.save(taskList);
-        //add task list to user
-        userService.addTaskList(user, taskList);
         return Mapper.TaskListToTaskListResponseDto(taskList);
     }
 
     @Override
-    public void roleNameIsExistForAdd(String taskListName, Long userId) {
+    public void taskListNameIsExistForAdd(String taskListName, Long userId) {
         Optional<TaskList> taskList = taskListRepository.listNameIsExistForAdd(taskListName, userId);
         if (taskList.isPresent()) {
             throw new TaskListNameIsExisException(HttpStatus.CONFLICT.value(), " This task list name is exist - please enter a new one");
