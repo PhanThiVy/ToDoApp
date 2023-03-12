@@ -5,6 +5,7 @@ import com.example.ToDoAppDemo.dto.requestDto.TaskRequestDto;
 import com.example.ToDoAppDemo.dto.responseDto.TaskResponseDto;
 import com.example.ToDoAppDemo.exception.taskException.TaskIsExistException;
 import com.example.ToDoAppDemo.exception.taskException.TaskNotFoundException;
+import com.example.ToDoAppDemo.exception.taskListException.TaskListNotFoundException;
 import com.example.ToDoAppDemo.model.Task;
 import com.example.ToDoAppDemo.model.TaskList;
 import com.example.ToDoAppDemo.repository.TasKRepository;
@@ -50,6 +51,18 @@ public class TaskServiceImpl implements TaskService {
         if (task.isPresent()){
             throw new TaskIsExistException(HttpStatus.NOT_FOUND.value(),"Task name is exist - please enter a new one.");
         }
+    }
+
+    @Override
+    public Task getTask(String taskId) {
+        if(taskId.matches("\\d+")){
+            Optional<Task> task = taskRepository.findById(Long.valueOf(taskId));
+            if (task.isEmpty()){
+                throw new TaskNotFoundException(HttpStatus.NOT_FOUND.value(), "Can not find task with id " + taskId);
+            }
+            return task.get();
+        }
+        throw new TaskNotFoundException(HttpStatus.NOT_FOUND.value(),"Please enter number for task id." );
     }
 
 }
