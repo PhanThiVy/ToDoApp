@@ -2,15 +2,19 @@ package com.example.ToDoAppDemo.dto.mapper;
 
 import com.example.ToDoAppDemo.dto.responseDto.RoleResponseDto;
 import com.example.ToDoAppDemo.dto.responseDto.TaskListResponseDto;
+import com.example.ToDoAppDemo.dto.responseDto.TaskResponseDto;
 import com.example.ToDoAppDemo.dto.responseDto.UserResponseDto;
 import com.example.ToDoAppDemo.model.Role;
 import com.example.ToDoAppDemo.model.Task;
 import com.example.ToDoAppDemo.model.TaskList;
 import com.example.ToDoAppDemo.model.User;
+import jdk.javadoc.doclet.Doclet;
 
+import javax.swing.text.html.Option;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Mapper {
     public static RoleResponseDto roleToRoleResponseDto(Role role) {
@@ -75,5 +79,29 @@ public class Mapper {
         taskListResponseDto.setTaskName(taskListName);
 
         return taskListResponseDto;
+    }
+
+    //map form Task to TaskResponseDto
+    public static TaskResponseDto TaskToTaskResponseDto(Task task) {
+        TaskResponseDto taskResponseDto = new TaskResponseDto();
+
+        //set id
+        taskResponseDto.setTaskId(task.getTaskId());
+        //set task name
+        taskResponseDto.setTaskName(task.getTaskName());
+        //set Description
+        taskResponseDto.setDescription(task.getDescription());
+        //set start date
+        taskResponseDto.setStartDate(task.getStartDate());
+        //set end date
+        taskResponseDto.setEndDate(task.getEndDate());
+        //set update date
+        taskResponseDto.setUpdateDate(task.getUpdateDate());
+        //set is completed
+        taskResponseDto.setIsCompleted(task.getIsCompleted());
+        //set task list id
+        TaskList taskList = task.getTaskList();
+        taskResponseDto.setTaskListId(taskList.getTaskListId());
+        return taskResponseDto;
     }
 }
