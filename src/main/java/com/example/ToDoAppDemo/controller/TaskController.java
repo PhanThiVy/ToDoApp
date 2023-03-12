@@ -3,17 +3,13 @@ package com.example.ToDoAppDemo.controller;
 import com.example.ToDoAppDemo.dto.requestDto.TaskRequestDto;
 import com.example.ToDoAppDemo.dto.responseDto.TaskResponseDto;
 import com.example.ToDoAppDemo.exception.taskException.TaskIsNotValidException;
-import com.example.ToDoAppDemo.exception.taskListException.TaskListNotValidException;
 import com.example.ToDoAppDemo.service.iService.TaskService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -44,6 +40,12 @@ public class TaskController {
         }
         TaskResponseDto taskResponseDto = taskService.addTask(taskListId,taskRequestDto);
         return new ResponseEntity<>(taskResponseDto, HttpStatus.OK);
+    }
+
+    @GetMapping("/getById")
+    public ResponseEntity<TaskResponseDto> getTaskById(@RequestParam String taskId){
+        TaskResponseDto taskResponseDto = taskService.getTaskById(taskId);
+        return new ResponseEntity<>(taskResponseDto,HttpStatus.OK);
     }
 
 }
