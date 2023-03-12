@@ -40,8 +40,8 @@ public class TaskListController {
         return new ResponseEntity<>(taskListResponseDto, HttpStatus.OK);
     }
 
-    @GetMapping("/getById/{taskListId}")
-    public ResponseEntity<TaskListResponseDto> getTaskListById(@PathVariable String taskListId){
+    @GetMapping("/getById")
+    public ResponseEntity<TaskListResponseDto> getTaskListById(@RequestParam String taskListId){
         TaskListResponseDto taskListResponseDto = taskListService.getTaskListById(taskListId);
         return new ResponseEntity<>(taskListResponseDto, HttpStatus.OK);
     }

@@ -36,7 +36,7 @@ public class TaskListServiceImpl implements TaskListService {
         taskList.setUser(user);
         //save task list
         taskListRepository.save(taskList);
-        return Mapper.TaskListToTaskListResponseDto(taskList);
+        return Mapper.taskListToTaskListResponseDto(taskList);
     }
 
     @Override
@@ -65,7 +65,7 @@ public class TaskListServiceImpl implements TaskListService {
     @Override
     public TaskListResponseDto getTaskListById(String taskListById) {
         TaskList taskList = getTaskList(taskListById);
-        return Mapper.TaskListToTaskListResponseDto(taskList);
+        return Mapper.taskListToTaskListResponseDto(taskList);
     }
 
     @Override
@@ -79,7 +79,7 @@ public class TaskListServiceImpl implements TaskListService {
         taskList.setListName(taskListRequestDto.getTaskListName());
 
         taskListRepository.save(taskList);
-        return Mapper.TaskListToTaskListResponseDto(taskList);
+        return Mapper.taskListToTaskListResponseDto(taskList);
     }
 
     @Override
