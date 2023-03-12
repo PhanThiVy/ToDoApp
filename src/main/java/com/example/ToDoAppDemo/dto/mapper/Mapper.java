@@ -64,7 +64,7 @@ public class Mapper {
 
     }
     //map form TaskList to TaskListResponseDto
-    public static TaskListResponseDto TaskListToTaskListResponseDto(TaskList taskList) {
+    public static TaskListResponseDto taskListToTaskListResponseDto(TaskList taskList) {
         TaskListResponseDto taskListResponseDto = new TaskListResponseDto();
 
         taskListResponseDto.setTaskListId(taskList.getTaskListId());
@@ -82,7 +82,7 @@ public class Mapper {
     }
 
     //map form Task to TaskResponseDto
-    public static TaskResponseDto TaskToTaskResponseDto(Task task) {
+    public static TaskResponseDto taskToTaskResponseDto(Task task) {
         TaskResponseDto taskResponseDto = new TaskResponseDto();
 
         //set id
