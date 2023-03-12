@@ -16,21 +16,16 @@ import java.time.LocalDate;
 @Builder
 public class TaskRequestDto {
     @NotEmpty
-    @Size(min = 3 ,max = 20)
+    @Size(min = 1 ,max = 20)
     private String taskName;
-    @NotEmpty
-    @Max(value = 500)
+    @Size(min = 0 ,max = 500)
     private String description;
-    @NotEmpty
     @DateTimeFormat(pattern = "dd/MM/YYYY")
     @FutureOrPresent
     private LocalDate startDate;
-    @NotEmpty
     @DateTimeFormat(pattern = "dd/MM/YYYY")
     @FutureOrPresent
     private LocalDate endDate;
-    @DateTimeFormat(pattern = "dd/MM/YYYY")
-    private LocalDate updateDate;
-    @NotEmpty
-    private Long taskListId;
+
+
 }
