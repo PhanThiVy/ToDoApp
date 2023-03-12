@@ -1,5 +1,8 @@
 package com.example.ToDoAppDemo.exception;
 
+import com.example.ToDoAppDemo.exception.taskException.TaskIsExistException;
+import com.example.ToDoAppDemo.exception.taskException.TaskIsNotValidException;
+import com.example.ToDoAppDemo.exception.taskException.TaskNotFoundException;
 import com.example.ToDoAppDemo.exception.taskListException.TaskListNameIsExisException;
 import com.example.ToDoAppDemo.exception.taskListException.TaskListNotFoundException;
 import com.example.ToDoAppDemo.exception.taskListException.TaskListNotValidException;
@@ -44,6 +47,23 @@ public class ApplicationExceptionHandler {
     @ExceptionHandler(TaskListNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ErrorDetail handlerTaskListNotFoundException(TaskListNotFoundException ex){
+        return ex.getErrorDetail();
+    }
+
+    @ExceptionHandler(TaskNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErrorDetail handlerTaskNotFoundException(TaskNotFoundException ex){
+        return ex.getErrorDetail();
+    }
+
+    @ExceptionHandler(TaskIsExistException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ErrorDetail handlerTaskIsExistException(TaskIsExistException ex){
+        return ex.getErrorDetail();
+    }
+    @ExceptionHandler(TaskIsNotValidException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorDetail handlerTaskIsNotValidException(TaskIsNotValidException ex){
         return ex.getErrorDetail();
     }
 }
