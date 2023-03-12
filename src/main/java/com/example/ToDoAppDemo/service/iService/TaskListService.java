@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 public interface TaskListService {
     public TaskListResponseDto addTaskList(String userId,TaskListRequestDto taskListRequestDto);
-    public void roleNameIsExistForAdd(String taskListName,Long userId);
+    public void taskListNameIsExistForAdd(String taskListName,Long userId);
     public TaskList getTaskList(String taskListById);
     public TaskListResponseDto getTaskListById(String taskListById);
     public TaskListResponseDto editTaskList(String taskListById, TaskListRequestDto taskListRequestDto);

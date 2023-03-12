@@ -49,8 +49,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
         //save user
         userRepository.save(user);
-        //save role
-        roleService.addUser(roleService.getRoleByName(UserServiceImpl.USER),user);
         return Mapper.userToUserResponseDto(user);
     }
 
@@ -106,18 +104,4 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             throw new UsernameNotFoundException("not found user name");
         }
         return new CustomUserDetails(user.get());}
-
-
-    @Override
-    public void addTaskList(User user, TaskList taskList) {
-        user.addTaskList(taskList);
-        userRepository.save(user);
-    }
-
-    @Override
-    public void removeTaskList(User user, TaskList taskList) {
-        user.removeTaskList(taskList);
-        userRepository.save(user);
-
-    }
 }

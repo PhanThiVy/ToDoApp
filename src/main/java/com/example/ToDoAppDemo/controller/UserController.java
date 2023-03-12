@@ -7,6 +7,7 @@ import com.example.ToDoAppDemo.dto.requestDto.TaskListRequestDto;
 import com.example.ToDoAppDemo.dto.requestDto.UserRequestDto;
 import com.example.ToDoAppDemo.dto.responseDto.LoginResponseDto;
 import com.example.ToDoAppDemo.dto.responseDto.UserResponseDto;
+import com.example.ToDoAppDemo.exception.userException.UserNameExistException;
 import com.example.ToDoAppDemo.exception.userException.UserNotValidException;
 import com.example.ToDoAppDemo.jwt.CustomUserDetails;
 import com.example.ToDoAppDemo.jwt.JwtTokenProvider;
@@ -38,7 +39,7 @@ public class UserController {
     private final AuthenticationManager authenticationManager;
 
     private final JwtTokenProvider tokenProvider;
-    @Transactional(rollbackOn = {UserNotValidException.class})
+    @Transactional(rollbackOn = {UserNotValidException.class, UserNameExistException.class})
     @PostMapping("/signUp")
     public ResponseEntity<UserResponseDto> addUser(@Valid @RequestBody UserRequestDto userRequestDto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {

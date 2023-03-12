@@ -18,5 +18,6 @@ public class TaskResponseDto {
     private LocalDate startDate;
     private LocalDate endDate;
     private LocalDate updateDate;
-    private String taskListName;
+    private Boolean isCompleted;
+    private Long taskListId;
 }

@@ -34,11 +34,10 @@ public class User {
     @Column(nullable = false)
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate registrationDate = LocalDate.now();
-    //    @Builder.Default
+    @Column(nullable = false)
     private Boolean locked = false;
 
 
-    private String token;
     @ManyToMany(cascade =
             {
                     CascadeType.DETACH,
@@ -61,11 +60,5 @@ public class User {
     public void removeRole(Role role) {
         roles.remove(role);
     }
-    public void addTaskList(TaskList tasks) {
-        taskList.add(tasks);
-    }
 
-    public void removeTaskList(TaskList tasks) {
-        taskList.remove(tasks);
-    }
 }
