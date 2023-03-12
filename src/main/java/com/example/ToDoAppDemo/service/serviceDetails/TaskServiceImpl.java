@@ -5,7 +5,6 @@ import com.example.ToDoAppDemo.dto.requestDto.TaskRequestDto;
 import com.example.ToDoAppDemo.dto.responseDto.TaskResponseDto;
 import com.example.ToDoAppDemo.exception.taskException.TaskIsExistException;
 import com.example.ToDoAppDemo.exception.taskException.TaskNotFoundException;
-import com.example.ToDoAppDemo.exception.taskListException.TaskListNotFoundException;
 import com.example.ToDoAppDemo.model.Task;
 import com.example.ToDoAppDemo.model.TaskList;
 import com.example.ToDoAppDemo.repository.TasKRepository;
@@ -42,7 +41,7 @@ public class TaskServiceImpl implements TaskService {
         //save task
         taskRepository.save(task);
 
-        return Mapper.TaskToTaskResponseDto(task);
+        return Mapper.taskToTaskResponseDto(task);
     }
 
     @Override
@@ -63,6 +62,12 @@ public class TaskServiceImpl implements TaskService {
             return task.get();
         }
         throw new TaskNotFoundException(HttpStatus.NOT_FOUND.value(),"Please enter number for task id." );
+    }
+
+    @Override
+    public TaskResponseDto getTaskById(String taskId) {
+        Task task = getTask(taskId);
+        return Mapper.taskToTaskResponseDto(task);
     }
 
 }
