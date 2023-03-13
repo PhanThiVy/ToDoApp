@@ -1,5 +1,6 @@
 package com.example.ToDoAppDemo.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,13 +26,15 @@ public class Task {
     private String taskName;
     @Column(nullable = false, length = 500)
     private String description;
-    @DateTimeFormat(pattern = "dd/MM/YYYY")
+//    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     @FutureOrPresent
     private LocalDate startDate;
-    @DateTimeFormat(pattern = "dd/MM/YYYY")
+//    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     @FutureOrPresent
     private LocalDate endDate;
-    @DateTimeFormat(pattern = "dd/MM/YYYY")
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate updateDate;
     @Column(nullable = false)
     private Boolean isCompleted=false;
