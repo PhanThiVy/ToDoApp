@@ -14,4 +14,6 @@ import java.util.Optional;
 public interface TasKRepository extends JpaRepository<Task,Long> {
     @Query(value = "SELECT * FROM tasK t WHERE t.task_name = :taskName  and t.task_list_id= :taskListId", nativeQuery = true)
     Optional<Task> taskNameIsExistForAdd(@Param("taskName") String taskName, @Param("taskListId") Long taskListId);
+    @Query(value = "SELECT * FROM tasK t WHERE t.task_name = :taskName and t.task_id != :taskId  and t.task_list_id= :taskListId", nativeQuery = true)
+    Optional<Task> taskNameIsExistForEdit(@Param("taskName") String taskName,@Param("taskId") Long taskId, @Param("taskListId") Long taskListId);
 }
