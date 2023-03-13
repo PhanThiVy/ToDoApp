@@ -26,11 +26,9 @@ public class Task {
     private String taskName;
     @Column(nullable = false, length = 500)
     private String description;
-//    @DateTimeFormat(pattern = "dd/MM/yyyy")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     @FutureOrPresent
     private LocalDate startDate;
-//    @DateTimeFormat(pattern = "dd/MM/yyyy")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     @FutureOrPresent
     private LocalDate endDate;
