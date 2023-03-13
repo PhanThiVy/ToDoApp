@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 @Service
@@ -25,8 +26,9 @@ public class TaskServiceImpl implements TaskService {
     public TaskResponseDto addTask(String taskListId,TaskRequestDto taskRequestDto) {
         Task task = new Task();
 
-        //set task name
+        //check task name is exist
         taskNameIsExistForAdd(taskRequestDto.getTaskName(),Long.valueOf(taskListId));
+        //set task name
         task.setTaskName(taskRequestDto.getTaskName());
         //set description
         task.setDescription(taskRequestDto.getDescription());
@@ -68,6 +70,37 @@ public class TaskServiceImpl implements TaskService {
     public TaskResponseDto getTaskById(String taskId) {
         Task task = getTask(taskId);
         return Mapper.taskToTaskResponseDto(task);
+    }
+
+    @Override
+    public TaskResponseDto editTask(String taskId,String taskListId, TaskRequestDto taskRequestDto) {
+        //check task is exist
+        Task task = getTask(taskId);
+
+        //check task name is exist for edit
+        taskNameIsExistForEdit(taskRequestDto.getTaskName(),Long.valueOf(taskId),Long.valueOf(taskListId));
+        //set task name
+        task.setTaskName(taskRequestDto.getTaskName());
+        //set description
+        task.setDescription(taskRequestDto.getDescription());
+        //set start date
+        task.setStartDate(taskRequestDto.getStartDate());
+        //set end date
+        task.setEndDate(taskRequestDto.getEndDate());
+        //set update date
+        task.setUpdateDate(LocalDate.now());
+
+        taskRepository.save(task);
+        return Mapper.taskToTaskResponseDto(task);
+
+    }
+
+    @Override
+    public void taskNameIsExistForEdit(String taskName, Long taskId, Long taskListId) {
+        Optional<Task> task = taskRepository.taskNameIsExistForEdit(taskName,taskId,taskListId);
+        if(task.isPresent()){
+            throw new TaskIsExistException(HttpStatus.CONFLICT.value(),"Task name is exist - please enter a new one.");
+        }
     }
 
 }
