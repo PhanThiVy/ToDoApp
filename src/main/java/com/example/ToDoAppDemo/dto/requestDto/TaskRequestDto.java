@@ -1,5 +1,6 @@
 package com.example.ToDoAppDemo.dto.requestDto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -16,14 +17,16 @@ import java.time.LocalDate;
 @Builder
 public class TaskRequestDto {
     @NotEmpty
-    @Size(min = 1 ,max = 20)
+    @Size(min = 1, max = 20)
     private String taskName;
-    @Size(min = 0 ,max = 500)
+    @Size(min = 0, max = 500)
     private String description;
-    @DateTimeFormat(pattern = "dd/MM/YYYY")
+    //    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     @FutureOrPresent
     private LocalDate startDate;
-    @DateTimeFormat(pattern = "dd/MM/YYYY")
+    //    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     @FutureOrPresent
     private LocalDate endDate;
 
