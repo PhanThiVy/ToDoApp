@@ -48,4 +48,10 @@ public class TaskController {
         return new ResponseEntity<>(taskResponseDto,HttpStatus.OK);
     }
 
+    @PutMapping("/edit/{taskId}/{taskListId}")
+    public ResponseEntity<TaskResponseDto> editTask(@PathVariable String taskId, @PathVariable String taskListId, @RequestBody TaskRequestDto taskRequestDto){
+        TaskResponseDto taskResponseDto = taskService.editTask(taskId,taskListId,taskRequestDto);
+        return new ResponseEntity<>(taskResponseDto,HttpStatus.OK);
+    }
+
 }
