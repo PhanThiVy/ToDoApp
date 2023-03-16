@@ -27,6 +27,7 @@ public class TaskRequestDto {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     @FutureOrPresent
     private LocalDate endDate;
+    private Long taskListId;
 
 
 }

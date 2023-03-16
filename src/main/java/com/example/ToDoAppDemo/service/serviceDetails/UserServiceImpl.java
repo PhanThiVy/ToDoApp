@@ -54,11 +54,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
 
     @Override
-    public User getUser(String userId) {
-        if (userId.matches("\\d+")) {
-            Long id = Long.parseLong(userId);
+    public User getUser(Long userId) {
             //check role is exist
-            Optional<User> user = userRepository.findById(id);
+            Optional<User> user = userRepository.findById(userId);
             if(user.isEmpty()){
                 throw new UserNotFoundException(HttpStatus.NOT_FOUND.value(),"Can not find user with id "+ userId);
             }
@@ -66,23 +64,21 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         }
 
         //if roleId is not number , thrown NotFoundException
-        throw new UserNotFoundException(HttpStatus.NOT_FOUND.value(),"Please enter number for user id.");
-    }
 
     @Override
-    public UserResponseDto getUserById(String userId) {
+    public UserResponseDto getUserById(Long userId) {
         User user = getUser(userId);
         return Mapper.userToUserResponseDto(user);
     }
 
 
     @Override
-    public UserResponseDto addRoleToUserToUser(String userId, String roleId) {
+    public UserResponseDto addRoleToUserToUser(Long userId, Long roleId) {
         return null;
     }
 
     @Override
-    public UserResponseDto deleteRoleFromUser(String bookId, String roleId) {
+    public UserResponseDto deleteRoleFromUser(Long bookId, Long roleId) {
         return null;
     }
 

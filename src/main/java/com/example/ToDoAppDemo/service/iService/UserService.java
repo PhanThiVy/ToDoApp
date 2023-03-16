@@ -8,9 +8,9 @@ import com.example.ToDoAppDemo.model.User;
 
 public interface UserService {
     public UserResponseDto signUp(UserRequestDto userRequestDto);
-    public User getUser(String userId);
-    public UserResponseDto getUserById(String userId);
-    public UserResponseDto addRoleToUserToUser(String userId, String roleId);
-    public UserResponseDto deleteRoleFromUser(String bookId, String roleId);
+    public User getUser(Long userId);
+    public UserResponseDto getUserById(Long userId);
+    public UserResponseDto addRoleToUserToUser(Long userId, Long roleId);
+    public UserResponseDto deleteRoleFromUser(Long bookId, Long roleId);
     public boolean userNameIsExist(String userName);
 }

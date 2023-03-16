@@ -20,8 +20,8 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class TaskListController {
     private final TaskListService taskListService;
-    @PostMapping("/add/{userId}")
-    public ResponseEntity<TaskListResponseDto> addTaskList(@PathVariable String userId,@Valid @RequestBody TaskListRequestDto taskListRequestDto, BindingResult bindingResult) {
+    @PostMapping("/add")
+    public ResponseEntity<TaskListResponseDto> addTaskList(@Valid @RequestBody TaskListRequestDto taskListRequestDto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             Map<String, String> errors = new HashMap<>();
 
@@ -36,18 +36,18 @@ public class TaskListController {
             }
             throw new TaskListNotValidException(HttpStatus.BAD_REQUEST.value(), errorMsg);
         }
-        TaskListResponseDto taskListResponseDto = taskListService.addTaskList(userId,taskListRequestDto);
+        TaskListResponseDto taskListResponseDto = taskListService.addTaskList(taskListRequestDto);
         return new ResponseEntity<>(taskListResponseDto, HttpStatus.OK);
     }
 
     @GetMapping("/getById")
-    public ResponseEntity<TaskListResponseDto> getTaskListById(@RequestParam String taskListId){
+    public ResponseEntity<TaskListResponseDto> getTaskListById(@RequestParam Long taskListId){
         TaskListResponseDto taskListResponseDto = taskListService.getTaskListById(taskListId);
         return new ResponseEntity<>(taskListResponseDto, HttpStatus.OK);
     }
 
     @PutMapping("/editTaskList/{taskListId}")
-    public ResponseEntity<TaskListResponseDto> edit(@PathVariable String taskListId, @RequestBody TaskListRequestDto taskListRequestDto) {
+    public ResponseEntity<TaskListResponseDto> edit(@PathVariable Long taskListId, @RequestBody TaskListRequestDto taskListRequestDto) {
         TaskListResponseDto taskListResponseDto = taskListService.editTaskList(taskListId, taskListRequestDto);
         return new ResponseEntity<>(taskListResponseDto, HttpStatus.OK);
     }

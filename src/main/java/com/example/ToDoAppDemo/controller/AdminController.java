@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class AdminController {
     private final UserService userService;
     @GetMapping("/getUserById")
-    public ResponseEntity<UserResponseDto> getUserById(@RequestParam String userId){
+    public ResponseEntity<UserResponseDto> getUserById(@RequestParam Long userId){
         UserResponseDto userResponseDto = userService.getUserById(userId);
         return new ResponseEntity<>(userResponseDto, HttpStatus.OK);
     }

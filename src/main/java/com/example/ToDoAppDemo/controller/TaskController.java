@@ -22,8 +22,8 @@ import java.util.Map;
 public class TaskController {
     private final TaskService taskService;
     @Transactional
-    @PostMapping("/add/{taskListId}")
-    public ResponseEntity<TaskResponseDto> addTask(@PathVariable String taskListId, @Valid @RequestBody TaskRequestDto taskRequestDto, BindingResult bindingResult){
+    @PostMapping("/add")
+    public ResponseEntity<TaskResponseDto> addTask(@Valid @RequestBody TaskRequestDto taskRequestDto, BindingResult bindingResult){
         if (bindingResult.hasErrors()) {
             Map<String, String> errors = new HashMap<>();
 
@@ -38,19 +38,19 @@ public class TaskController {
             }
             throw new TaskIsNotValidException(HttpStatus.BAD_REQUEST.value(), errorMsg);
         }
-        TaskResponseDto taskResponseDto = taskService.addTask(taskListId,taskRequestDto);
+        TaskResponseDto taskResponseDto = taskService.addTask(taskRequestDto);
         return new ResponseEntity<>(taskResponseDto, HttpStatus.OK);
     }
 
     @GetMapping("/getById")
-    public ResponseEntity<TaskResponseDto> getTaskById(@RequestParam String taskId){
+    public ResponseEntity<TaskResponseDto> getTaskById(@RequestParam Long taskId){
         TaskResponseDto taskResponseDto = taskService.getTaskById(taskId);
         return new ResponseEntity<>(taskResponseDto,HttpStatus.OK);
     }
 
-    @PutMapping("/edit/{taskId}/{taskListId}")
-    public ResponseEntity<TaskResponseDto> editTask(@PathVariable String taskId, @PathVariable String taskListId, @RequestBody TaskRequestDto taskRequestDto){
-        TaskResponseDto taskResponseDto = taskService.editTask(taskId,taskListId,taskRequestDto);
+    @PutMapping("/edit/{taskId}")
+    public ResponseEntity<TaskResponseDto> editTask(@PathVariable Long taskId, @RequestBody TaskRequestDto taskRequestDto){
+        TaskResponseDto taskResponseDto = taskService.editTask(taskId,taskRequestDto);
         return new ResponseEntity<>(taskResponseDto,HttpStatus.OK);
     }
 

@@ -7,11 +7,11 @@ import com.example.ToDoAppDemo.dto.responseDto.TaskResponseDto;
 import com.example.ToDoAppDemo.model.Task;
 
 public interface TaskService {
-    public TaskResponseDto addTask(String taskListId,TaskRequestDto taskRequestDto);
+    public TaskResponseDto addTask(TaskRequestDto taskRequestDto);
     public void taskNameIsExistForAdd(String taskName,Long taskListId);
 
-    public Task getTask(String taskId);
-    public TaskResponseDto getTaskById(String taskId);
-    public TaskResponseDto editTask(String taskId,String taskListId, TaskRequestDto taskRequestDto);
+    public Task getTask(Long taskId);
+    public TaskResponseDto getTaskById(Long taskId);
+    public TaskResponseDto editTask(Long taskId, TaskRequestDto taskRequestDto);
     public void taskNameIsExistForEdit(String taskName,Long taskId,Long taskListId);
 }

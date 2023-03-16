@@ -40,6 +40,7 @@ public class UserController {
     private final AuthenticationManager authenticationManager;
 
     private final JwtTokenProvider tokenProvider;
+
     @Transactional(rollbackOn = {UserNotValidException.class, UserNameExistException.class})
     @PostMapping("/signUp")
     public ResponseEntity<UserResponseDto> addUser(@Valid @RequestBody UserRequestDto userRequestDto, BindingResult bindingResult) {
@@ -68,14 +69,14 @@ public class UserController {
         // Xác thực từ username và password.
         Authentication authentication = null;
         try {
-             authentication = authenticationManager.authenticate(
+            authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
                             loginRequestDto.getUserName(),
                             loginRequestDto.getPassword()
                     )
             );
-        }catch (BadCredentialsException ex){
-            return new ResponseEntity<>("UserName or Password is not valid",HttpStatus.BAD_REQUEST);
+        } catch (BadCredentialsException ex) {
+            return new ResponseEntity<>("UserName or Password is not valid", HttpStatus.BAD_REQUEST);
         }
 
 
@@ -85,7 +86,9 @@ public class UserController {
 
         // Trả về jwt cho người dùng.
         String jwt = tokenProvider.generateToken((CustomUserDetails) authentication.getPrincipal());
-        return new ResponseEntity<>(jwt,HttpStatus.OK);
+        CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
+        customUserDetails.getUser();
+        return new ResponseEntity<>(jwt, HttpStatus.OK);
     }
 
 }

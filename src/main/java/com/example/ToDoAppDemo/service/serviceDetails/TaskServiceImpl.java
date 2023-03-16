@@ -23,11 +23,12 @@ public class TaskServiceImpl implements TaskService {
     private final TasKRepository taskRepository;
     private final TaskListService taskListService;
     @Override
-    public TaskResponseDto addTask(String taskListId,TaskRequestDto taskRequestDto) {
+    public TaskResponseDto addTask(TaskRequestDto taskRequestDto) {
         Task task = new Task();
-
+        //check task list is exist
+        taskListService.getTaskList(taskRequestDto.getTaskListId());
         //check task name is exist
-        taskNameIsExistForAdd(taskRequestDto.getTaskName(),Long.valueOf(taskListId));
+        taskNameIsExistForAdd(taskRequestDto.getTaskName(),taskRequestDto.getTaskListId());
         //set task name
         task.setTaskName(taskRequestDto.getTaskName());
         //set description
@@ -37,7 +38,7 @@ public class TaskServiceImpl implements TaskService {
         //set end date
         task.setEndDate(taskRequestDto.getEndDate());
         //set task list id
-        TaskList taskList = taskListService.getTaskList(taskListId);
+        TaskList taskList = taskListService.getTaskList(taskRequestDto.getTaskListId());
         task.setTaskList(taskList);
 
         //save task
@@ -55,30 +56,28 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public Task getTask(String taskId) {
-        if(taskId.matches("\\d+")){
-            Optional<Task> task = taskRepository.findById(Long.valueOf(taskId));
+    public Task getTask(Long taskId) {
+            Optional<Task> task = taskRepository.findById(taskId);
             if (task.isEmpty()){
                 throw new TaskNotFoundException(HttpStatus.NOT_FOUND.value(), "Can not find task with id " + taskId);
             }
             return task.get();
         }
-        throw new TaskNotFoundException(HttpStatus.NOT_FOUND.value(),"Please enter number for task id." );
-    }
 
     @Override
-    public TaskResponseDto getTaskById(String taskId) {
+    public TaskResponseDto getTaskById(Long taskId) {
         Task task = getTask(taskId);
         return Mapper.taskToTaskResponseDto(task);
     }
 
     @Override
-    public TaskResponseDto editTask(String taskId,String taskListId, TaskRequestDto taskRequestDto) {
+    public TaskResponseDto editTask(Long taskId, TaskRequestDto taskRequestDto) {
         //check task is exist
         Task task = getTask(taskId);
-
+        //check task list is exist
+        taskListService.getTaskList(taskRequestDto.getTaskListId());
         //check task name is exist for edit
-        taskNameIsExistForEdit(taskRequestDto.getTaskName(),Long.valueOf(taskId),Long.valueOf(taskListId));
+        taskNameIsExistForEdit(taskRequestDto.getTaskName(),taskId,taskRequestDto.getTaskListId());
         //set task name
         task.setTaskName(taskRequestDto.getTaskName());
         //set description
