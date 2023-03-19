@@ -1,5 +1,6 @@
 package com.example.ToDoAppDemo.exception;
 
+import com.example.ToDoAppDemo.exception.passwordException.CurrentPasswordNotMatch;
 import com.example.ToDoAppDemo.exception.taskException.TaskIsExistException;
 import com.example.ToDoAppDemo.exception.taskException.TaskIsNotValidException;
 import com.example.ToDoAppDemo.exception.taskException.TaskNotFoundException;
@@ -64,6 +65,12 @@ public class ApplicationExceptionHandler {
     @ExceptionHandler(TaskIsNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorDetail handlerTaskIsNotValidException(TaskIsNotValidException ex){
+        return ex.getErrorDetail();
+    }
+
+    @ExceptionHandler(CurrentPasswordNotMatch.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorDetail handlerCurrentPasswordNotMatch(CurrentPasswordNotMatch ex){
         return ex.getErrorDetail();
     }
 }
