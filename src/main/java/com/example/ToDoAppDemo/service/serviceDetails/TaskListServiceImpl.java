@@ -15,10 +15,16 @@ import com.example.ToDoAppDemo.repository.UserRepository;
 import com.example.ToDoAppDemo.service.iService.TaskListService;
 import com.example.ToDoAppDemo.service.iService.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -26,20 +32,22 @@ public class TaskListServiceImpl implements TaskListService {
     private final TaskListRepository taskListRepository;
     private final UserService userService;
 
-    private final JwtAuthenticationFilter jwtAuthenticationFilter;
+    @Autowired
+    private PageRequest taskListPageable;
 
     @Override
     public TaskListResponseDto addTaskList(TaskListRequestDto taskListRequestDto) {
-
-
         TaskList taskList = new TaskList();
+
         //check user is exist
         User user = userService.getUser(taskListRequestDto.getUserId());
+
         //check task list name is exist
         taskListNameIsExistForAdd(taskListRequestDto.getTaskListName(), taskListRequestDto.getUserId());
 
         taskList.setListName(taskListRequestDto.getTaskListName());
         taskList.setUser(user);
+
         //save task list
         taskListRepository.save(taskList);
         return Mapper.taskListToTaskListResponseDto(taskList);
@@ -56,15 +64,15 @@ public class TaskListServiceImpl implements TaskListService {
 
     @Override
     public TaskList getTaskList(Long taskListById) {
-
             //check role is exist
             Optional<TaskList> taskList = taskListRepository.findById(taskListById);
+
             if(taskList.isEmpty()){
                 throw new TaskListNotFoundException(HttpStatus.NOT_FOUND.value(), "Can not find task list with id " + taskListById);
             }
+
             return taskList.get();
         }
-        //if roleId is not number , thrown NotFoundException
 
     @Override
     public TaskListResponseDto getTaskListById(Long taskListById) {
@@ -73,11 +81,28 @@ public class TaskListServiceImpl implements TaskListService {
     }
 
     @Override
+    public Page<TaskListResponseDto> getAllTaskList(int pageNumber, Long userId) {
+        //check user
+        User user = userService.getUser(userId);
+
+        //get all tasklist by user
+        Page<TaskList> taskLists = taskListRepository.findByUser(taskListPageable.withPage(pageNumber),user);
+
+        //map Page<TaskList> to List<TaskListResponseDto>
+        List<TaskListResponseDto> taskListResponseDtoList=taskLists.stream().map(taskList -> new TaskListResponseDto(taskList.getTaskListId(),
+                taskList.getListName(),taskList.getTasks().stream().map(task -> task.getTaskName()).collect(Collectors.toList()), taskList.getUser().getUserName())).collect(Collectors.toList());
+
+        return new PageImpl<>(taskListResponseDtoList, taskLists.getPageable(),taskListResponseDtoList.size());
+    }
+
+    @Override
     public TaskListResponseDto editTaskList(Long taskListById, TaskListRequestDto taskListRequestDto) {
         //check task list is exist
         TaskList taskList = getTaskList(taskListById);
+
         //check task list name is duplicate
         taskListNameIsExistForEdit(taskListRequestDto.getTaskListName(),taskList.getTaskListId(),taskList.getUser().getId());
+
         //check user is exist
         userService.getUser(taskListRequestDto.getUserId());
         taskList.setListName(taskListRequestDto.getTaskListName());
