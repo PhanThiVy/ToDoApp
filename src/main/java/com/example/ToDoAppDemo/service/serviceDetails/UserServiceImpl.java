@@ -28,6 +28,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private static final String ADMIN = "ADMIN";
     private final UserRepository userRepository;
     private final RoleService roleService;
+//    private final BCryptPasswordEncoder passwordEncoder;
 
     @Override
     public UserResponseDto signUp(UserRequestDto userRequestDto) {
@@ -91,6 +92,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         }
         return false;
     }
+
+
 
     @Transactional
     @Override

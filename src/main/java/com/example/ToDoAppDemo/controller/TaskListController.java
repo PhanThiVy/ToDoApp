@@ -5,6 +5,7 @@ import com.example.ToDoAppDemo.dto.responseDto.TaskListResponseDto;
 import com.example.ToDoAppDemo.exception.taskListException.TaskListNotValidException;
 import com.example.ToDoAppDemo.service.iService.TaskListService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -44,6 +45,12 @@ public class TaskListController {
     public ResponseEntity<TaskListResponseDto> getTaskListById(@RequestParam Long taskListId){
         TaskListResponseDto taskListResponseDto = taskListService.getTaskListById(taskListId);
         return new ResponseEntity<>(taskListResponseDto, HttpStatus.OK);
+    }
+
+    @GetMapping("/getAll")
+    public ResponseEntity<Page<TaskListResponseDto>> getAll(@RequestParam(defaultValue = "0") int pageNumber,@RequestParam Long userId){
+        Page<TaskListResponseDto> taskListResponseDtos = taskListService.getAllTaskList(pageNumber,userId);
+        return new ResponseEntity<>(taskListResponseDtos, HttpStatus.OK);
     }
 
     @PutMapping("/editTaskList/{taskListId}")

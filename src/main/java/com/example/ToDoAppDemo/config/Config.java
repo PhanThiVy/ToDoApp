@@ -33,6 +33,11 @@ public class Config {
     }
 
     @Bean
+    public PageRequest taskListPageable() {
+        return PageRequest.of(0, 20, Sort.by(Sort.Direction.ASC, "listName"));
+    }
+
+    @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())

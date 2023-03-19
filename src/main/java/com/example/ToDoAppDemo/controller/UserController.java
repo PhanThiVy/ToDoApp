@@ -2,16 +2,14 @@ package com.example.ToDoAppDemo.controller;
 
 import com.example.ToDoAppDemo.dto.requestDto.LoginRequestDto;
 
-import com.example.ToDoAppDemo.dto.requestDto.TaskListRequestDto;
-
 import com.example.ToDoAppDemo.dto.requestDto.UserRequestDto;
-import com.example.ToDoAppDemo.dto.responseDto.LoginResponseDto;
 import com.example.ToDoAppDemo.dto.responseDto.UserResponseDto;
 import com.example.ToDoAppDemo.exception.userException.UserNameExistException;
 import com.example.ToDoAppDemo.exception.userException.UserNotValidException;
 import com.example.ToDoAppDemo.jwt.CustomUserDetails;
 import com.example.ToDoAppDemo.jwt.JwtTokenProvider;
 import com.example.ToDoAppDemo.service.iService.UserService;
+import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,10 +20,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -90,5 +85,6 @@ public class UserController {
         customUserDetails.getUser();
         return new ResponseEntity<>(jwt, HttpStatus.OK);
     }
+
 
 }
