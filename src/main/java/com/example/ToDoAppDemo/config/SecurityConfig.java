@@ -65,7 +65,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(SWAGGER_WHITELIST).permitAll()
                 .antMatchers("/user/login").permitAll()
-                .antMatchers("/role/list").hasAuthority("ADMIN")
+                .antMatchers("/passwordReset/token").permitAll()
+                .antMatchers("/passwordReset/reset").permitAll()
+                .antMatchers("/role/list","/admin/blockUser").hasAuthority("ADMIN")
                 .and()
                 .authorizeRequests()
                 .anyRequest().authenticated();
