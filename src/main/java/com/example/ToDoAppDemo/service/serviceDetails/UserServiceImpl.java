@@ -66,11 +66,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
         //if roleId is not number , thrown NotFoundException
 
-    @Override
-    public UserResponseDto getUserById(Long userId) {
-        User user = getUser(userId);
-        return Mapper.userToUserResponseDto(user);
-    }
 
 
     @Override

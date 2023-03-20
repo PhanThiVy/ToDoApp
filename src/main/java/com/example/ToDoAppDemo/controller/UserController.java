@@ -8,6 +8,8 @@ import com.example.ToDoAppDemo.exception.userException.UserNameExistException;
 import com.example.ToDoAppDemo.exception.userException.UserNotValidException;
 import com.example.ToDoAppDemo.jwt.CustomUserDetails;
 import com.example.ToDoAppDemo.jwt.JwtTokenProvider;
+import com.example.ToDoAppDemo.model.User;
+import com.example.ToDoAppDemo.repository.UserRepository;
 import com.example.ToDoAppDemo.service.iService.UserService;
 import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
@@ -26,12 +28,14 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/user")
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
+    private final UserRepository userRepository;
     private final AuthenticationManager authenticationManager;
 
     private final JwtTokenProvider tokenProvider;
@@ -60,7 +64,10 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<String> authenticateUser(@RequestBody LoginRequestDto loginRequestDto) {
-
+        Optional<User> user = userRepository.findUserByUserName(loginRequestDto.getUserName());
+        if(user.get().getLocked()){
+            throw new UserNotValidException(HttpStatus.LOCKED.value(),"Your account has been locked by an administrator.");
+        }
         // Xác thực từ username và password.
         Authentication authentication = null;
         try {
