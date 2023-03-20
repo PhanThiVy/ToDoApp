@@ -1,6 +1,7 @@
 package com.example.ToDoAppDemo.service.serviceDetails;
 
 import com.example.ToDoAppDemo.exception.passwordException.CurrentPasswordNotMatch;
+import com.example.ToDoAppDemo.exception.passwordException.ResetPasswordTokenNotValidException;
 import com.example.ToDoAppDemo.exception.userException.UserNotFoundException;
 import com.example.ToDoAppDemo.model.PasswordResetToken;
 import com.example.ToDoAppDemo.model.User;
@@ -38,7 +39,7 @@ public class PasswordResetServiceImpl implements PasswordResetService {
         PasswordResetToken token = new PasswordResetToken();
         token.setUser(user);
         token.setToken(UUID.randomUUID().toString());
-        token.setExpiryDate(LocalDateTime.now().plusMinutes(30));
+        token.setExpiryDate(LocalDateTime.now().plusMinutes(2));
         return tokenRepository.save(token);
     }
 
@@ -46,11 +47,11 @@ public class PasswordResetServiceImpl implements PasswordResetService {
     public void resetPassword(String token, String newPassword) {
         PasswordResetToken resetToken = tokenRepository.findByToken(token);
         if (resetToken == null) {
-            throw new IllegalArgumentException("Invalid token: " + token);
+            throw new ResetPasswordTokenNotValidException(HttpStatus.BAD_REQUEST.value(),"Invalid token: " + token);
         }
 
         if (resetToken.getExpiryDate().isBefore(LocalDateTime.now())) {
-            throw new IllegalArgumentException("Token has expired");
+            throw new ResetPasswordTokenNotValidException(HttpStatus.BAD_REQUEST.value(),"Token has expired");
         }
 
         User user = resetToken.getUser();
