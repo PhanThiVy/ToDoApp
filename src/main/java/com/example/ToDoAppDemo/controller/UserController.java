@@ -66,7 +66,7 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<LoginResponseDto> authenticateUser(@RequestBody LoginRequestDto loginRequestDto) {
         Optional<User> user = userRepository.findUserByUserName(loginRequestDto.getUserName());
-        if(user.get().getLocked()){
+        if(user.isPresent() && user.get().getLocked()){
             throw new UserNotValidException(HttpStatus.LOCKED.value(),"Your account has been locked by an administrator.");
         }
         // Xác thực từ username và password.
@@ -79,7 +79,7 @@ public class UserController {
                     )
             );
         } catch (BadCredentialsException ex) {
-//            return new ResponseEntity<>("UserName or Password is not valid", HttpStatus.BAD_REQUEST);
+            throw new UserNotValidException(HttpStatus.BAD_REQUEST.value(),"UserName or Password is not valid");
         }
 
 
