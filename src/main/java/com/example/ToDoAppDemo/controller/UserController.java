@@ -1,8 +1,10 @@
 package com.example.ToDoAppDemo.controller;
 
+import com.example.ToDoAppDemo.dto.mapper.Mapper;
 import com.example.ToDoAppDemo.dto.requestDto.LoginRequestDto;
 
 import com.example.ToDoAppDemo.dto.requestDto.UserRequestDto;
+import com.example.ToDoAppDemo.dto.responseDto.LoginResponseDto;
 import com.example.ToDoAppDemo.dto.responseDto.UserResponseDto;
 import com.example.ToDoAppDemo.exception.userException.UserNameExistException;
 import com.example.ToDoAppDemo.exception.userException.UserNotValidException;
@@ -11,9 +13,9 @@ import com.example.ToDoAppDemo.jwt.JwtTokenProvider;
 import com.example.ToDoAppDemo.model.User;
 import com.example.ToDoAppDemo.repository.UserRepository;
 import com.example.ToDoAppDemo.service.iService.UserService;
-import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -63,7 +65,7 @@ public class UserController {
 
 
     @PostMapping("/login")
-    public ResponseEntity<String> authenticateUser(@RequestBody LoginRequestDto loginRequestDto) {
+    public ResponseEntity<LoginResponseDto> authenticateUser(@RequestBody LoginRequestDto loginRequestDto) {
         Optional<User> user = userRepository.findUserByUserName(loginRequestDto.getUserName());
         if(user.get().getLocked()){
             throw new UserNotValidException(HttpStatus.LOCKED.value(),"Your account has been locked by an administrator.");
@@ -78,7 +80,7 @@ public class UserController {
                     )
             );
         } catch (BadCredentialsException ex) {
-            return new ResponseEntity<>("UserName or Password is not valid", HttpStatus.BAD_REQUEST);
+//            return new ResponseEntity<>("UserName or Password is not valid", HttpStatus.BAD_REQUEST);
         }
 
 
@@ -88,10 +90,15 @@ public class UserController {
 
         // Trả về jwt cho người dùng.
         String jwt = tokenProvider.generateToken((CustomUserDetails) authentication.getPrincipal());
-        CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
-        customUserDetails.getUser();
-        return new ResponseEntity<>(jwt, HttpStatus.OK);
-    }
 
+        CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
+        User user1 = customUserDetails.getUser();
+        UserResponseDto userResponseDto = Mapper.userToUserResponseDto(user1);
+        UserResponseDto userResponseDto1= new UserResponseDto();
+        LoginResponseDto loginResponseDto = new LoginResponseDto();
+        loginResponseDto.setUserResponseDto(userResponseDto);
+        loginResponseDto.setToken(jwt);
+        return new ResponseEntity<>(loginResponseDto, HttpStatus.OK);
+    }
 
 }
