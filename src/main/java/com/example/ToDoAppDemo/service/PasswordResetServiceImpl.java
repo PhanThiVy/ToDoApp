@@ -1,13 +1,12 @@
 package com.example.ToDoAppDemo.service;
 
-import com.example.ToDoAppDemo.exception.passwordException.CurrentPasswordNotMatch;
-import com.example.ToDoAppDemo.exception.passwordException.ResetPasswordTokenNotValidException;
-import com.example.ToDoAppDemo.exception.userException.UserNotFoundException;
+import com.example.ToDoAppDemo.exception.CurrentPasswordNotMatch;
+import com.example.ToDoAppDemo.exception.ResetPasswordTokenNotValidException;
+import com.example.ToDoAppDemo.exception.UserNotFoundException;
 import com.example.ToDoAppDemo.model.PasswordResetToken;
 import com.example.ToDoAppDemo.model.User;
 import com.example.ToDoAppDemo.repository.PasswordResetTokenRepository;
 import com.example.ToDoAppDemo.repository.UserRepository;
-import com.example.ToDoAppDemo.service.PasswordResetService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;

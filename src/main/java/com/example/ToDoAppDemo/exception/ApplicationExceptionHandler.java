@@ -1,16 +1,5 @@
 package com.example.ToDoAppDemo.exception;
 
-import com.example.ToDoAppDemo.exception.passwordException.CurrentPasswordNotMatch;
-import com.example.ToDoAppDemo.exception.passwordException.ResetPasswordTokenNotValidException;
-import com.example.ToDoAppDemo.exception.taskException.TaskIsExistException;
-import com.example.ToDoAppDemo.exception.taskException.TaskIsNotValidException;
-import com.example.ToDoAppDemo.exception.taskException.TaskNotFoundException;
-import com.example.ToDoAppDemo.exception.taskListException.TaskListNameIsExisException;
-import com.example.ToDoAppDemo.exception.taskListException.TaskListNotFoundException;
-import com.example.ToDoAppDemo.exception.taskListException.TaskListNotValidException;
-import com.example.ToDoAppDemo.exception.userException.UserNameExistException;
-import com.example.ToDoAppDemo.exception.userException.UserNotFoundException;
-import com.example.ToDoAppDemo.exception.userException.UserNotValidException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;

@@ -1,4 +1,4 @@
-package com.example.ToDoAppDemo.exception.taskException;
+package com.example.ToDoAppDemo.exception;
 
 import com.example.ToDoAppDemo.exception.ErrorDetail;
 import lombok.Getter;
@@ -6,10 +6,10 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Getter
-public class TaskNotFoundException extends RuntimeException{
+public class UserNotFoundException extends RuntimeException{
     private final ErrorDetail errorDetail;
 
-    public TaskNotFoundException(int errorCode, String message) {
+    public UserNotFoundException(int errorCode, String message) {
         super();
         this.errorDetail = new ErrorDetail().builder()
                 .errorCode(errorCode)

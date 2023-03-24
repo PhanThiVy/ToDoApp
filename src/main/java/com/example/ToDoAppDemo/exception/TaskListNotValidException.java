@@ -1,4 +1,4 @@
-package com.example.ToDoAppDemo.exception.taskListException;
+package com.example.ToDoAppDemo.exception;
 
 import com.example.ToDoAppDemo.exception.ErrorDetail;
 import lombok.Getter;
@@ -6,10 +6,10 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Getter
-public class TaskListNameIsExisException extends RuntimeException{
+public class TaskListNotValidException extends RuntimeException{
     private final ErrorDetail errorDetail;
 
-    public TaskListNameIsExisException(int errorCode, String message) {
+    public TaskListNotValidException(int errorCode, String message) {
         super();
         this.errorDetail = new ErrorDetail().builder()
                 .errorCode(errorCode)

@@ -2,7 +2,7 @@ package com.example.ToDoAppDemo.controller;
 
 import com.example.ToDoAppDemo.dto.requestDto.TaskListRequestDto;
 import com.example.ToDoAppDemo.dto.responseDto.TaskListResponseDto;
-import com.example.ToDoAppDemo.exception.taskListException.TaskListNotValidException;
+import com.example.ToDoAppDemo.exception.TaskListNotValidException;
 import com.example.ToDoAppDemo.service.TaskListService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
