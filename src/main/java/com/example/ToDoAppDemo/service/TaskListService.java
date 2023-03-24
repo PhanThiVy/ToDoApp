@@ -1,4 +1,4 @@
-package com.example.ToDoAppDemo.service.iService;
+package com.example.ToDoAppDemo.service;
 
 import com.example.ToDoAppDemo.dto.requestDto.TaskListRequestDto;
 import com.example.ToDoAppDemo.dto.responseDto.TaskListResponseDto;

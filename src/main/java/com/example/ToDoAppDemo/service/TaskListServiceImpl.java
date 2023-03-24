@@ -1,19 +1,15 @@
-package com.example.ToDoAppDemo.service.serviceDetails;
+package com.example.ToDoAppDemo.service;
 
 import com.example.ToDoAppDemo.dto.mapper.Mapper;
 import com.example.ToDoAppDemo.dto.requestDto.TaskListRequestDto;
 import com.example.ToDoAppDemo.dto.responseDto.TaskListResponseDto;
 import com.example.ToDoAppDemo.exception.taskListException.TaskListNameIsExisException;
 import com.example.ToDoAppDemo.exception.taskListException.TaskListNotFoundException;
-import com.example.ToDoAppDemo.exception.userException.UserNotFoundException;
-import com.example.ToDoAppDemo.jwt.JwtAuthenticationFilter;
-import com.example.ToDoAppDemo.jwt.JwtTokenProvider;
 import com.example.ToDoAppDemo.model.TaskList;
 import com.example.ToDoAppDemo.model.User;
 import com.example.ToDoAppDemo.repository.TaskListRepository;
-import com.example.ToDoAppDemo.repository.UserRepository;
-import com.example.ToDoAppDemo.service.iService.TaskListService;
-import com.example.ToDoAppDemo.service.iService.UserService;
+import com.example.ToDoAppDemo.service.TaskListService;
+import com.example.ToDoAppDemo.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

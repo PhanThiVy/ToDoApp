@@ -1,7 +1,7 @@
 package com.example.ToDoAppDemo.controller;
 
 import com.example.ToDoAppDemo.dto.responseDto.RoleResponseDto;
-import com.example.ToDoAppDemo.service.iService.RoleService;
+import com.example.ToDoAppDemo.service.RoleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;

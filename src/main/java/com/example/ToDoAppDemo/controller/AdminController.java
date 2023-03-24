@@ -1,8 +1,7 @@
 package com.example.ToDoAppDemo.controller;
 
 import com.example.ToDoAppDemo.dto.responseDto.UserResponseDto;
-import com.example.ToDoAppDemo.service.iService.AdminService;
-import io.swagger.v3.oas.annotations.Parameter;
+import com.example.ToDoAppDemo.service.AdminService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

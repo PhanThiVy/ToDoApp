@@ -1,22 +1,17 @@
 package com.example.ToDoAppDemo.jwt;
 
-import com.example.ToDoAppDemo.dto.responseDto.UserResponseDto;
 import com.example.ToDoAppDemo.model.Role;
 import com.example.ToDoAppDemo.model.User;
-import com.example.ToDoAppDemo.service.iService.UserService;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 @AllArgsConstructor

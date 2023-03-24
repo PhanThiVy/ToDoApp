@@ -1,13 +1,12 @@
-package com.example.ToDoAppDemo.service.serviceDetails;
+package com.example.ToDoAppDemo.service;
 
 import com.example.ToDoAppDemo.dto.mapper.Mapper;
 import com.example.ToDoAppDemo.dto.responseDto.RoleResponseDto;
 import com.example.ToDoAppDemo.model.Role;
 import com.example.ToDoAppDemo.model.User;
 import com.example.ToDoAppDemo.repository.RoleRepository;
-import com.example.ToDoAppDemo.service.iService.RoleService;
+import com.example.ToDoAppDemo.service.RoleService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;

@@ -1,26 +1,14 @@
 package com.example.ToDoAppDemo.controller;
 
 import com.example.ToDoAppDemo.model.PasswordResetToken;
-import com.example.ToDoAppDemo.model.User;
-import com.example.ToDoAppDemo.repository.UserRepository;
-import com.example.ToDoAppDemo.service.iService.PasswordResetService;
-import com.example.ToDoAppDemo.service.iService.UserService;
-import com.example.ToDoAppDemo.service.serviceDetails.UserServiceImpl;
+import com.example.ToDoAppDemo.service.PasswordResetService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/passwordReset")

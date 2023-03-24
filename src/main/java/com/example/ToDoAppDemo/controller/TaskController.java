@@ -3,7 +3,7 @@ package com.example.ToDoAppDemo.controller;
 import com.example.ToDoAppDemo.dto.requestDto.TaskRequestDto;
 import com.example.ToDoAppDemo.dto.responseDto.TaskResponseDto;
 import com.example.ToDoAppDemo.exception.taskException.TaskIsNotValidException;
-import com.example.ToDoAppDemo.service.iService.TaskService;
+import com.example.ToDoAppDemo.service.TaskService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

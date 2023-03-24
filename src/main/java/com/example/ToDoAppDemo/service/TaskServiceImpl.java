@@ -1,4 +1,4 @@
-package com.example.ToDoAppDemo.service.serviceDetails;
+package com.example.ToDoAppDemo.service;
 
 import com.example.ToDoAppDemo.dto.mapper.Mapper;
 import com.example.ToDoAppDemo.dto.requestDto.TaskRequestDto;
@@ -8,8 +8,8 @@ import com.example.ToDoAppDemo.exception.taskException.TaskNotFoundException;
 import com.example.ToDoAppDemo.model.Task;
 import com.example.ToDoAppDemo.model.TaskList;
 import com.example.ToDoAppDemo.repository.TasKRepository;
-import com.example.ToDoAppDemo.service.iService.TaskListService;
-import com.example.ToDoAppDemo.service.iService.TaskService;
+import com.example.ToDoAppDemo.service.TaskListService;
+import com.example.ToDoAppDemo.service.TaskService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;

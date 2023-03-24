@@ -1,7 +1,7 @@
 package com.example.ToDoAppDemo.config;
 
 import com.example.ToDoAppDemo.jwt.JwtAuthenticationFilter;
-import com.example.ToDoAppDemo.service.serviceDetails.UserServiceImpl;
+import com.example.ToDoAppDemo.service.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,11 +1,11 @@
-package com.example.ToDoAppDemo.service.serviceDetails;
+package com.example.ToDoAppDemo.service;
 
 import com.example.ToDoAppDemo.dto.mapper.Mapper;
 import com.example.ToDoAppDemo.dto.responseDto.UserResponseDto;
 import com.example.ToDoAppDemo.model.User;
 import com.example.ToDoAppDemo.repository.UserRepository;
-import com.example.ToDoAppDemo.service.iService.AdminService;
-import com.example.ToDoAppDemo.service.iService.UserService;
+import com.example.ToDoAppDemo.service.AdminService;
+import com.example.ToDoAppDemo.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

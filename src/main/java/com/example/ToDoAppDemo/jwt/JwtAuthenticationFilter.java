@@ -1,7 +1,7 @@
 package com.example.ToDoAppDemo.jwt;
 
-import com.example.ToDoAppDemo.service.iService.UserService;
-import com.example.ToDoAppDemo.service.serviceDetails.UserServiceImpl;
+import com.example.ToDoAppDemo.service.UserService;
+import com.example.ToDoAppDemo.service.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

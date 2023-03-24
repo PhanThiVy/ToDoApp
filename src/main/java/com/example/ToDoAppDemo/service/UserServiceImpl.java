@@ -1,4 +1,4 @@
-package com.example.ToDoAppDemo.service.serviceDetails;
+package com.example.ToDoAppDemo.service;
 
 import com.example.ToDoAppDemo.dto.mapper.Mapper;
 import com.example.ToDoAppDemo.dto.requestDto.UserRequestDto;
@@ -6,11 +6,8 @@ import com.example.ToDoAppDemo.dto.responseDto.UserResponseDto;
 import com.example.ToDoAppDemo.exception.userException.UserNameExistException;
 import com.example.ToDoAppDemo.exception.userException.UserNotFoundException;
 import com.example.ToDoAppDemo.jwt.CustomUserDetails;
-import com.example.ToDoAppDemo.model.TaskList;
 import com.example.ToDoAppDemo.model.User;
 import com.example.ToDoAppDemo.repository.UserRepository;
-import com.example.ToDoAppDemo.service.iService.RoleService;
-import com.example.ToDoAppDemo.service.iService.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetailsService;
